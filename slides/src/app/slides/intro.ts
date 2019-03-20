@@ -38,15 +38,39 @@ export class TitleSlide {}
       <pre markdown>
         * Philipp Burgmer
         * W11K / theCodeCampus
+        * Entwickler, Trainer
         * TypeScript, Angular
       </pre>
     </tcc-master-regular>
   `
 })
-export class AboutSlide {}
+export class AboutMeSlide {}
+
+
+@Component({
+  template: `
+    <tcc-master-regular headline="Was machen wir hier eigentlich?">
+      <pre markdown>
+        * Was gab es neues
+        * Was gibt es neues
+        * Was wird es neues geben
+      </pre>
+    </tcc-master-regular>
+    <tcc-speaker-notes *ngxPresentSpeakerNotes>
+      <pre markdown>
+        * Wer beschäftigt sich mit den Neuerungen? Wer updated einfach?
+        * Wer verfolgt Präsentationen von Konferenzen im Internet?
+        * Aufgeteilt nach Technologien, nicht nach Versionen
+      </pre>
+    </tcc-speaker-notes>
+  `
+})
+export class AboutWorkshopSlide {}
+
 
 
 export const intro = [
   TitleSlide,
-  AboutSlide,
+  AboutMeSlide,
+  AboutWorkshopSlide,
 ];
