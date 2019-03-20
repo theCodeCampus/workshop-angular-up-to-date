@@ -1,0 +1,5 @@
+@import "~@w11k/ngx-present/style/ngx-present";
+@import "~@thecodecampus/ngx-present-theme/style/ngx-present";
+
+@include ngx-present();
+@include ngx-present-tcc-theme();
