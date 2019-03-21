@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { ApplicationRef, CUSTOM_ELEMENTS_SCHEMA, DoBootstrap, Injector, NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { Feature1Module } from './feature1/feature1.module';
+import { createCustomElement } from '@angular/elements';
+import { FoobarComponent } from './feature1/foobar/foobar.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +16,12 @@ import { Feature1Module } from './feature1/feature1.module';
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: []
 })
-export class AppModule { }
+export class AppModule implements DoBootstrap {
+  constructor(private injector: Injector) {}
+  ngDoBootstrap(appRef: ApplicationRef): void {
+    const customElement = createCustomElement(FoobarComponent, { injector: this.injector });
+    customElements.define('app-foobar', customElement);
+  }
+}
