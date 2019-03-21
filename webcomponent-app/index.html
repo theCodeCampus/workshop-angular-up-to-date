@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <head>
+    <script src="../elements-app/node_modules/zone.js/dist/zone.js"></script>
+    <script type="module" src="../elements-app/dist/elements-app/main.js"></script>
+  </head>
+
+  <body>
+    <h1>webcomponent app</h1>
+
+    <button>Click to set complex</button>
+
+    <app-foobar primitive="hello web components"></app-foobar>
+
+    <script>
+        document.querySelector('button').addEventListener('click', () => {
+          document.querySelector('app-foobar').complex = {
+            foo: 'hello', bar: 42
+          };
+        });
+      </script>
+  </body>
+</html>
