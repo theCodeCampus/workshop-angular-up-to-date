@@ -16,12 +16,11 @@ export class TitleSlide {}
   template: `
     <tcc-master-regular headline="Bazel">
       <pre markdown>
-        * <a href="https://bazel.build/" target="_blank">Bazel</a>: a fast, scalable, multi-language and extensible build system
-          * Von Google entwickelt
-          * Intern schon sehr lange sehr stark eingesetzt
-          * Bisher eher Schattendasein außerhalb von Google
-        * Google's Angular Projekte bauen mit Bazel statt CLI
-          * Google verwender CLI quasi nicht
+        * <a href="https://bazel.build/" target="_blank">Bazel</a>
+          * Fast, scalable, multi-language and extensible build system
+          * Developed by Google
+          * Internally used heavily for a long time (called Blaze)
+          * So far little known / used outside of Google
       </pre>
     </tcc-master-regular>
   `
@@ -32,12 +31,16 @@ export class AboutBazelSlide {}
   template: `
     <tcc-master-regular headline="CLI vs Bazel">
       <pre markdown>
-        * CLI für große Projekte nicht optimal
-          * Wird langsamer
-          * Baut immer alles
-          * Schlecht erweiterbar
-        * Zwei Build-Tools pflegen aufwändig
-          * CLI migriert langsam zu Bazel (<a href="https://g.co/ng/abc" target="_blank">ABC Project</a>)
+        * Google's Angular projects are build with Bazel
+          * Nearly no usage of Angular CLI by Google
+        * Why? CLI not usable for large projects
+          * Too slow / no incremental builds
+          * Hard to extend
+        * Currently two Build-Tools to maintain
+        * Experiment: Migrate CLI to Bazel (<a href="https://g.co/ng/abc" target="_blank">ABC Project</a>)
+          * Affects internal subsystem only
+          * Same high level commands
+          * Nearly no points of contact for end users
       </pre>
     </tcc-master-regular>
   `
@@ -48,13 +51,16 @@ export class CLIvsBazelSlide {}
   template: `
     <tcc-master-regular headline="Bazel">
       <pre markdown>
-        * Schnell
-          * parallelisiert
-          * cached, sogar remote
-          * baut inkrementell
-        * Erweiterbar
-          * Plugins sind wie Unix Pipes
-        * Universell (Backend)
+        * Bazel is fast
+          * runs tasks in parallel
+          * caches results
+          * builds incremental
+          * executes and caches remotely
+        * Bazel is extendable
+          * Plugins are like unix pipes
+        * Bazel is versatile
+          * One build tool for all kinds of projects
+          * Build your backend
       </pre>
     </tcc-master-regular>
   `
@@ -63,16 +69,14 @@ export class BazelOverviewSlide {}
 
 @Component({
   template: `
-    <tcc-master-regular headline="Angular CLI mit Bazel">
+    <tcc-master-regular headline="Angular CLI with Bazel">
       <pre markdown>
-        * Noch ein Angular Labs Projekt
-          * Nicht für produktive Anwendung bereit
-          * Preview mit Angular 7 & 8
+        * Currently an Angular Labs project
+          * Not ready for production
+          * Preview in Angular 7
+          * Highly improved Preview in Angular 8
           * Optional in Angular 9
-        * Verwendung soll gleich bleiben
-          * Migration "under the hood"
-        * Funktionsumfang noch nicht erreicht
-        * Geschwindigkeit noch nicht erreicht
+        * Usage should remain the same
       </pre>
     </tcc-master-regular>
     <tcc-speaker-notes *ngxPresentSpeakerNotes>
@@ -83,6 +87,24 @@ export class BazelOverviewSlide {}
 })
 export class BazelAndCLISlide {}
 
+
+@Component({
+  template: `
+    <tcc-master-regular headline="Performance">
+      <div>
+        <pre markdown>
+          * Slide from Presentation in January
+        </pre>
+        <img src="assets/images/bazel-performance.png" style="max-width: 90vw; max-height: 65vh;" alt="Slide with some performance measurements">
+      </div>
+    </tcc-master-regular>
+    <tcc-speaker-notes *ngxPresentSpeakerNotes>
+      <pre markdown>
+      </pre>
+    </tcc-speaker-notes>
+  `
+})
+export class BazelSlideImageSlide {}
 
 @Component({
   template: `
@@ -115,6 +137,7 @@ export const bazelSlides = [
   CLIvsBazelSlide,
   BazelOverviewSlide,
   BazelAndCLISlide,
+  BazelSlideImageSlide,
   BazelDemoSlide,
   BazelInDepthSlide,
 ];
