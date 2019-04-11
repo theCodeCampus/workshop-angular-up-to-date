@@ -14,16 +14,15 @@ export class TitleSlide {}
 
 @Component({
   template: `
-    <tcc-master-regular headline="Worum geht es eigentlich?">
+    <tcc-master-regular headline="What it's all about?">
       <pre markdown>
-        * Bisher
-          * Angular Komponenten werden in Angular Anwendung verwendet
-          * Bibliotheken auf nur für Angular gedacht
-          * Geschlossenes Öko-System
-        * Wie wäre es wenn wir ... könnten
-          * Angular Komponenten außerhalb von Angular verwenden
-          * Browser kennt Tags unserer Komponenten
-          * Komponente anderer Frameworks in Angular verwenden
+        * Till today
+          * Angular components are developed as part of Angular apps or libs
+          * Angular components are used in Angular apps
+          * Closed eco system, no open web standard
+        * What if we could
+          * Use Angular components outside of Angular apps
+          * Use components of other frameworks
       </pre>
     </tcc-master-regular>
   `
@@ -35,14 +34,13 @@ export class IntroSlide {}
   template: `
     <tcc-master-regular headline="Web Components">
       <pre markdown>
-        * WebComponents ermöglichen genau das
-        * Überbegriff für verschiedene Standards
+        * WebComponents should enable us to do that
+        * Umbrella for multiple standards
           * HTML Templates
           * Custom Elements
           * Shadow Dom
-        * Verspricht Komponenten Framework unabhängig verwenden zu können
-        * Mit Framework oder plain entwickeln, überall verwenden
-        * Custom Elements wichtigster Standard
+        * Develop with or without framework
+        * Use components framework independently
       </pre>
     </tcc-master-regular>
   `
@@ -53,13 +51,13 @@ export class WebComponentsSlide {}
   template: `
     <tcc-master-regular headline="Polyfills">
       <pre markdown>
-        * Für IE und Edge wird Polyfill benötigt<br>
+        * For IE and Edge we need a polyfill<br>
           <a href="https://www.webcomponents.org" target="_blank">@webcomponents/webcomponentsjs</a>
-        * IE unterstützt kaum ES2015 &rarr; Target ES5
-        * Problem: WebComponents auf ES2015 ausgelegt
-          * Moderner Browser erlaubt kein ES5 bei WebComponents
-        * Lösung 1: Weiteres Polyfill native-shim.js
-        * Lösung 2: Differential Loading (<a href="https://github.com/manfredsteyer/ngx-build-plus/tree/master/ngx-build-modern" target="_blank">ngx-build-modern</a>)
+        * IE supports nearly no ES2015 &rarr; compile to ES5
+        * Next Problem: WebComponents rely on ES2015
+          * Modern Browsers do not allow WebComponents with ES5
+        * Solution 1: Additional polyfill <code>native-shim.js</code>
+        * Solution 2: Differential Loading (<a href="https://github.com/manfredsteyer/ngx-build-plus/tree/master/ngx-build-modern" target="_blank">ngx-build-modern</a>)
       </pre>
     </tcc-master-regular>
     <tcc-speaker-notes *ngxPresentSpeakerNotes>
@@ -74,10 +72,11 @@ export class PolyfillsSlide {}
   template: `
     <tcc-master-regular headline="Use Cases">
       <pre markdown>
-        * CMS Intergration
-        * Multi-Framework Entwicklung
-        * Integration in Alt-Anwendungen / Technologien
-        * Upgrade von AngularJS zu Angular (statt über @angular/upgrade)
+        * CMS Integration
+        * Multi-Framework Development
+        * Integration in legacy apps
+          * Upgrade from AngularJS zu Angular<br>
+            (alternative to @angular/upgrade)
         * Lazy Laoding und Micro-Frontends
       </pre>
     </tcc-master-regular>
@@ -90,10 +89,10 @@ export class UseCasesSlide {}
   template: `
     <tcc-master-regular headline="Angular Elements">
       <pre markdown>
-        * Angular Elements stellt Funktion <code>createCustomElement</code> bereit
-          * Verpackt eine Angular Komponente als WebComponent
-        * Intern alles von Angular nutzbar
-        * Nach außen Standard WebComponent
+        * Angular Elements provides function <code>createCustomElement</code>
+          * Packs Angular component as WebComponent
+        * Internally we can use everything Angular provides
+        * Looks like standard WebComponent to the outer world
       </pre>
     </tcc-master-regular>
   `
@@ -103,7 +102,7 @@ export class ElementsSlide {}
 @Component({
   template: `
     <tcc-master-regular headline="Demo">
-      <h2>Probieren wir es mal aus</h2>
+      <h2>Let's try it</h2>
     </tcc-master-regular>
     <tcc-speaker-notes *ngxPresentSpeakerNotes>
       <pre markdown>
@@ -128,8 +127,8 @@ export class Demo1Slide {}
     <tcc-master-regular headline="Komponente dynamisch erzeugen">
       <div>
         <pre markdown>
-          * Bisher nur Verwendung im Template
-          * WebComponents erleichtern aber auch dynamisches Erzeugen enorm
+          * Till now usage only in template
+          * WebComponents make dynamic instantiation much easier
         </pre>
         <tcc-code language="typescript" [code]="ngComponent"></tcc-code>
       </div>
@@ -161,8 +160,8 @@ document.body.appendChild(popup);
     <tcc-master-regular headline="Komponente dynamisch erzeugen">
       <div>
         <pre markdown>
-          * Bisher nur Verwendung im Template
-          * WebComponents erleichtern aber auch dynamisches Erzeugen enorm
+          * Till now usage only in template
+          * WebComponents make dynamic instantiation much easier
         </pre>
         <tcc-code language="typescript" [code]="webComponent"></tcc-code>
       </div>
@@ -188,13 +187,10 @@ document.body.appendChild(popupEl);
     <tcc-master-regular headline="Lazy Loading">
       <div>
         <pre markdown>
-          * Neue Möglichkeiten mit Komponenten gepackt als Skript mit WebComponents
-          * Use Case: Innerhalb von Angular z.B. bei Benutzer-Interaktion
-            * Skript nachladen
-            * DOM Element erzeugen
-            * Lazy Laoding auf Komponenten Ebene statt Routing
-          * Ab Angular CLI 6 möglich
-            * Kleine Bundles dank bekanntem Kontext
+          * We all know lazy loading
+          * Angluar CLI produces small separated bundles
+          * Bundles only contain additional code
+          * Depend on context with Angular already running
         </pre>
       </div>
     </tcc-master-regular>
@@ -202,58 +198,23 @@ document.body.appendChild(popupEl);
 })
 export class LazyLoading1Slide {}
 
-@Component({
-  template: `
-    <tcc-master-regular headline="Lazy Loading">
-      <div>
-        <tcc-code language="typescript" [code]="angularJson" headline="angular.json"></tcc-code>
-        <tcc-code language="typescript" [code]="loading" headline="angular.json"></tcc-code>
-      </div>
-    </tcc-master-regular>
-  `
-})
-export class LazyLoading2Slide {
-  angularJson = `
-"build": {
-  "builder": "@angular-devkit/build-angular:browser",
-  "options": {
-    "lazyModules": [ "src/app/lazy/lazy.module" ]
-}}
-  `;
-
-  loading = `
-export class FoobarComponent {
-  constructor(private loader: NgModuleFactoryLoader, private injector: Injector) {}
-
-  async onButtonClicked(): void {
-    const path = 'src/app/lazy/lazy.module#LazyModule';
-    const moduleFactory = await this.loader.load(path);
-
-    moduleFactory.create(this.injector);
-
-    // document.createElement();
-  }
-}
-  `;
-}
 
 @Component({
   template: `
-    <tcc-master-regular headline="Micro-Frontend">
+    <tcc-master-regular headline="Micro Frontend">
       <pre markdown>
-        * Lazy Laoding per Skript-Tag von beliebiger Quelle möglich
-        * Bei Benutzer-Interaktion
-          * Dynamisch Script-Tag erzeugen
-          * WebComponent verwenden
-        * Problem: Skript kennt Kontext nicht
-          * Muss alles mitbringen was es braucht
-          * TreeShaking besondeers wichtig
+        * Goal
+          * Load a script on demand
+          * In any application
+          * From any source
+        * Problem
+          * Script doesn't know context
+          * Has to contain everything it needs
+          * TreeShaking very important
       </pre>
     </tcc-master-regular>
     <tcc-speaker-notes *ngxPresentSpeakerNotes>
       <pre markdown>
-        * Dynamisches Erzeugen von Skript-Tags eigentlich aus Security-Sicht unerwünscht
-        * Preis für mehr Flexibilität
       </pre>
     </tcc-speaker-notes>
   `
@@ -263,11 +224,11 @@ export class MicroFrontendSlide {}
 
 @Component({
   template: `
-    <tcc-master-regular headline="Exportieren">
+    <tcc-master-regular headline="Export WebComponent">
       <pre markdown>
-        * <code>ng build</code> erzeugt 4 Dateien
-          * So nicht sinnvoll extern nutzbar
-        * <a href="https://github.com/manfredsteyer/ngx-build-plus" target="_blank">ngx-build-plus</a> erweitert Angular CLI
+        * <code>ng build</code> produces 4 files
+          * Too complicated to use in other environment
+        * <a href="https://github.com/manfredsteyer/ngx-build-plus" target="_blank">ngx-build-plus</a> extends Angular CLI
         * <code>ng build --output-hashing none --single-bundle</code>
       </pre>
     </tcc-master-regular>
@@ -279,7 +240,7 @@ export class BundleSlide {}
 @Component({
   template: `
     <tcc-master-regular headline="Demo">
-      <h2>Auch das probieren wir aus</h2>
+      <h2>Let's try it!</h2>
     </tcc-master-regular>
     <tcc-speaker-notes *ngxPresentSpeakerNotes>
       <pre markdown>
@@ -287,9 +248,6 @@ export class BundleSlide {}
         * bootstrap Feld in AppModule Decorator leeren
         * <code>ng add ngx-build-plus</code>
         * <code>ng build --output-hashing none --single-bundle</code>
-        * package.json in dist anlegen und <code>npm pack</code>
-        * zweites Projekt anlegen
-        * npm install tgz
       </pre>
     </tcc-speaker-notes>
   `
@@ -307,7 +265,6 @@ export const elementsSlides = [
   DynamicComponent1Slide,
   DynamicComponent2Slide,
   LazyLoading1Slide,
-  LazyLoading2Slide,
   MicroFrontendSlide,
   BundleSlide,
   Demo2Slide,
