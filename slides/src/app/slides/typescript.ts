@@ -14,120 +14,22 @@ export class TitleSlide {}
 
 @Component({
   template: `
-    <tcc-master-regular headline="TypeScript Versionen">
+    <tcc-master-regular headline="TypeScript Versions">
       <pre markdown>
-        * Bei TypeScript Version immer abhängig von Angular CLI
-        * Nur bestimmte Versionen werden unterstützt
-        * Hinkt leider meist etwas hinterher
-        * Aktuell 3.2 statt 3.3
+        * TypeScript version depends on Angular CLI
+        * Only certain versions are supported 
+        * Lags behind a bit most of the time
+        * Currently 3.2 instead of 3.4
       </pre>
     </tcc-master-regular>
   `
 })
 export class TypescriptSlide {}
 
-@Component({
-  template: `
-    <tcc-master-regular headline="Type unkown">
-        <pre markdown>
-          * Ab TypeScript 3.1
-          * Gegenstück zu <code>any</code>
-        </pre>
-        <tcc-code language="typescript" [code]="code"></tcc-code>
-    </tcc-master-regular>
-    <tcc-speaker-notes *ngxPresentSpeakerNotes>
-      <pre markdown>
-      </pre>
-    </tcc-speaker-notes>
-  `
-})
-export class UnknownSlide {
-  code = `
-function foo(x: unknown) {
-  // okay
-  x == 5; x !== 10;
-
-  // error
-  x >= 0; x + 1; x * 2;
-  x.foo; x[5]; x(); new x();
-}
-
-function isFunction(x: unknown): x is Function { /* ... */ }
-
-function bar(x: unknown) {
-  if (typeof x === "string") { x; /* string */ }
-  if (x instanceof Error) { x; /* Error */ }
-  if (isFunction(x)) { x; /* Function */ }
-}
-  `;
-}
-
-@Component({
-  template: `
-    <tcc-master-regular headline="Properties an Funktionen">
-      <div>
-        <pre markdown>
-          * Ab TypeScript 3.1
-          * In Angular selten, aber in Node häufig verwendet
-        </pre>
-        <tcc-code language="typescript" [code]="code"></tcc-code>
-      </div>
-    </tcc-master-regular>
-    <tcc-speaker-notes *ngxPresentSpeakerNotes>
-      <pre markdown>
-      </pre>
-    </tcc-speaker-notes>
-  `
-})
-export class FunctionPropertiesSlide {
-  code = `
-function readImage(path: string, callback: (err: any, image: Image) => void) {
-    // ...
-}
-
-readImage.sync = (path: string) => {
-    const contents = fs.readFileSync(path);
-    return decodeImageSync(contents);
-}
-  `;
-}
-
-@Component({
-  template: `
-    <tcc-master-regular headline="bind / call / apply">
-      <div>
-        <pre markdown>
-          * Ab TypeScript 3.2
-        </pre>
-        <tcc-code language="typescript" [code]="code"></tcc-code>
-      </div>
-    </tcc-master-regular>
-    <tcc-speaker-notes *ngxPresentSpeakerNotes>
-      <pre markdown>
-      </pre>
-    </tcc-speaker-notes>
-  `
-})
-export class StrictBindCallApplySlide {
-  code = `
-function foo(a: number, b: string): string {
-    return a + b;
-}
-
-let a = foo.apply(undefined, [10]);              // error: too few argumnts
-let b = foo.apply(undefined, [10, 20]);          // error: 2nd argument is a number
-let c = foo.apply(undefined, [10, "hello", 30]); // error: too many arguments
-let d = foo.apply(undefined, [10, "hello"]);     // okay! returns a string
-`;
-
-}
 
 @Component({
   template: `
     <tcc-master-regular headline="ReadonlyArray">
-      <pre markdown>
-        * Ab TypeScript 3.4
-      </pre>
       <tcc-code language="typescript" [code]="code"></tcc-code>
     </tcc-master-regular>
     <tcc-speaker-notes *ngxPresentSpeakerNotes>
@@ -152,13 +54,7 @@ function bar(arr: readonly string[]) {}
 @Component({
   template: `
     <tcc-master-regular headline="Const Assertion">
-      <div>
-        <pre markdown>
-          * Ab TypeScript 3.4
-        </pre>
-        <tcc-code language="typescript" [code]="code1"></tcc-code>
-        <tcc-code language="typescript" [code]="code2"></tcc-code>
-      </div>
+      <tcc-code language="typescript" [code]="code1"></tcc-code>
     </tcc-master-regular>
     <tcc-speaker-notes *ngxPresentSpeakerNotes>
       <pre markdown>
@@ -166,7 +62,7 @@ function bar(arr: readonly string[]) {}
     </tcc-speaker-notes>
   `
 })
-export class ConstAssertionSlide {
+export class ConstAssertionSlide1 {
 
   code1 = `
 let a1 = 10; // a: number
@@ -179,6 +75,19 @@ let y = [10, 20] as const; // y: readonly [10, 20]
 let z = { nested: { text: "hello" } } as const;
 // z: { readonly nested: { readonly text: "hello" }}
   `;
+}
+@Component({
+  template: `
+    <tcc-master-regular headline="Const Assertion">
+      <tcc-code language="typescript" [code]="code2"></tcc-code>
+    </tcc-master-regular>
+    <tcc-speaker-notes *ngxPresentSpeakerNotes>
+      <pre markdown>
+      </pre>
+    </tcc-speaker-notes>
+  `
+})
+export class ConstAssertionSlide2 {
 
   code2 = `
 let arr = [1, 2, 3, 4];
@@ -186,15 +95,17 @@ let foo = { name: "foo", contents: arr } as const;
 
 foo.name = "bar";   // error!
 foo.contents = [];  // error!
-
 foo.contents.push(5); // ...works!
   `;
 }
 
+
 @Component({
   template: `
-    <tcc-master-regular headline="Anwendungsfall">
-      <tcc-code language="typescript" [code]="code1"></tcc-code>
+    <tcc-master-regular headline="Use Case">
+      <div>
+        <tcc-code language="typescript" [code]="code1"></tcc-code>
+      </div>
     </tcc-master-regular>
     <tcc-speaker-notes *ngxPresentSpeakerNotes>
       <pre markdown>
@@ -210,16 +121,21 @@ const defaultConfig = {
 } as const;
 
 export type Config = typeof defaultConfig;
+
+@NgModule({})
+export class SomeModule {
+  static forRoot(config: Partial<Config>) {
+    // merge config and defaultConfig
+  }
+}
   `;
 }
 
 export const typeScriptSlides = [
   TitleSlide,
   TypescriptSlide,
-  UnknownSlide,
-  FunctionPropertiesSlide,
-  StrictBindCallApplySlide,
   ReadonlyArraySlide,
-  ConstAssertionSlide,
+  ConstAssertionSlide1,
+  ConstAssertionSlide2,
   ConfigExampleSlide,
 ];

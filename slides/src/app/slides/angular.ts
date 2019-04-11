@@ -16,10 +16,10 @@ export class TitleSlide {}
   <tcc-master-regular headline="ng update">
     <div>
       <pre markdown>
-        * Ab Angular CLI 6.0
-        * Hilft dabei up to date zu bleiben
-        * Migriert Code automatisch
-        * <code>ng update</code> analysiert und gibt mögliche Befehle aus
+        * Introduced with Angular CLI 6.0
+        * Helps to stay up to date
+        * Migrates code automatically
+        * <code>ng update</code> analyzes and prints commands
       </pre>
       <tcc-code language="plain" [code]="ngUpdateOutput"></tcc-code>
     </div>
@@ -39,117 +39,11 @@ rxjs                6.2.2 -> 6.3.1       ng update rxjs
 
 @Component({
   template: `
-    <tcc-master-regular headline="Angular 7 - Dependencies">
-      <pre markdown>
-        * TypeScript 3.1 und folgende
-        * RxJS 6.3
-      </pre>
-    </tcc-master-regular>
-  `
-})
-export class Angular7DependenciesSlide {}
-
-@Component({
-  template: `
-    <tcc-master-regular headline="Angular CLI 7">
-      <pre markdown>
-        * CLI läuft mit Node 8 und 10
-        * Polyfill für reflect-metadata nicht mehr mit ausgeliefert
-          * Wird zur Laufzeit bei AOT nicht benötigt
-          * Achtung wenn Bibliothek es benötigt
-        * Bundle Budgets: 2MB Warnung, 5MB Fehler
-        * Prompts statt Parameter
-      </pre>
-    </tcc-master-regular>
-  `
-})
-export class AngularCLI7Slide {}
-
-@Component({
-  template: `
-    <tcc-master-regular headline="Content Projection mit ng-content">
-      <pre markdown>
-        * Use Case: Collapse-Komponente
-          * Interessiert sich nicht für den Inhalt
-          * Hat Markup für Auf- und Zuklappen
-          * Fügt übergebenen Inhalt an passender Stelle ein
-      </pre>
-      <div>
-        <tcc-code language="html" [code]="sender" headline="outer.component.html"></tcc-code>
-        <tcc-code language="html" [code]="receiver" headline="collapse.component.html"></tcc-code>
-      </div>
-    </tcc-master-regular>
-  `
-})
-export class NgContentSlide {
-  sender = `
-<collapse>
-  <div class="collapsed">{{movie.title}}</div>
-  <div>{{movie.overview}}</div>
-</collapse>
-  `;
-
-  receiver = `
-<div (click)="toggle()">
-  <div *ngIf="collapsed">
-    <ng-content select=".collapsed"></ng-content>
-  </div>
-  <div *ngIf="!collapsed">
-    <ng-content></ng-content>
-  </div>
-</div>
-  `;
-}
-
-@Component({
-  template: `
-    <tcc-master-regular headline="Content Projection mit Slots">
-      <pre markdown>
-        * Ab Angular 7.0
-        * Annäherung an Web-Standard: <span class="nowrap">Web-Components mit slots</span>
-        * Setzen <span class="nowrap">ViewEncapsulation.ShadowDom</span> voraus
-        * Erlauben Default-Content
-      </pre>
-      <div>
-        <tcc-code language="html" [code]="sender" headline="outer.component.html"></tcc-code>
-        <tcc-code language="html" [code]="receiver" headline="collapse.component.html"></tcc-code>
-      </div>
-    </tcc-master-regular>
-    <tcc-speaker-notes *ngxPresentSpeakerNotes>
-      <pre markdown>
-        * <a href="https://www.softwarearchitekt.at/post/2018/10/31/content-projection-with-slots-in-angular-elements-7.aspx" target="_blank">Content Projection With Slots</a>
-        * Default-Content bleibt erhalten wenn kein Content übergeben wird
-      </pre>
-    </tcc-speaker-notes>
-  `
-})
-export class ContentProjectionSlotsSlide {
-  sender = `
-<app-collapse>
-  <p>{{movie.overview}}</p>
-  <div slot="collapsed">{{movie.title}}}</div>
-</app-collapse>
-  `;
-
-  receiver = `
-<div (click)="toggle()">
-  <div *ngIf="collapsed">
-    <slot name="collapsed"></ng-content>
-  </div>
-  <div *ngIf="!collapsed">
-    <slot>Leider gibt es nichts zum Anzeigen</slot>
-  </div>
-</div>
-  `;
-}
-
-@Component({
-  template: `
-    <tcc-master-regular headline="Router Guards">
+    <tcc-master-regular headline="Router Guards until Angular 7.1">
       <div>
         <pre markdown>
-          * Rückgabe bisher: <code>Observable&amp;lt;boolean&amp;gt; | Promise&amp;lt;boolean&amp;gt; | boolean</code>
-          * Fehlerbehandlung: asynchrone Navigation per <code>Router#navigate</code>
+          * Returns <code>Observable&amp;lt;boolean&amp;gt; | Promise&amp;lt;boolean&amp;gt; | boolean</code>
+          * Error handling: navigation via <code>Router#navigate</code> in guard
         </pre>
         <tcc-code language="typescript" [code]="code"></tcc-code>
       </div>
@@ -178,8 +72,9 @@ export class AuthorizationGuard implements CanActivate {
   template: `
     <tcc-master-regular headline="Router Guards">
       <pre markdown>
-        * Was passiert wen mehrere Guards fehlschlagen
-        * Verhalten Timing abhängig
+        * Guards cloud be async
+        * What happens if more than one returns false
+        * Depends on timing
       </pre>
       <tcc-code language="typescript" [code]="code"></tcc-code>
     </tcc-master-regular>
@@ -195,6 +90,7 @@ const routes = [{
     AuthorizationGuard,
     RandomGuard,
   ],
+  data: { role: 'ADMIN' }
 }];
   `;
 }
@@ -204,26 +100,28 @@ const routes = [{
     <tcc-master-regular headline="Router Guards">
       <div>
         <pre markdown>
-          * Ab Angular 7.1
-          * Guards können <code>UrlTree</code> statt <code>boolean</code> zurückgeben
-          * Guards sind priorisiert
+          * New in Angular 7.1
+          * Guards can return <code>UrlTree</code> instead of <code>boolean</code>
+          * Guards are prioritized (position in array)
         </pre>
-        <tcc-code language="typescript" [code]="code"></tcc-code>
       </div>
+      <tcc-code language="typescript" [code]="code"></tcc-code>
     </tcc-master-regular>
   `
 })
 export class RouterGuardsUrlTreeSlide {
   code = `
 @Injectable()
-export class AuthorizationGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+class AuthorizationGuard implements CanActivate {
+  constructor(private authService: AuthService,
+              private router: Router) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this.authService.userHasRole(route.data.userRole)
+  canActivate(route: ActivatedRouteSnapshot) {
+    const urlTree = this.router.parseUrl('login');
+    return this.authService.hasRole(route.data.role)
       .pipe(
         map((x) => {
-          if (!x) { return this.router.parseUrl('login'); }
+          if (!x) { return urlTree; }
           else { return true; }
         }),
       );
@@ -234,39 +132,12 @@ export class AuthorizationGuard implements CanActivate {
 
 @Component({
   template: `
-    <tcc-master-regular headline="Router">
-      <pre markdown>
-        * Wann werden Guards und Resolver ausgeführt?
-        * Steuern per <code>runGuardsAndResolvers</code>
-        * Ab Angular 7.1 neuer Wert <code>'pathParamsChange'</code>
-      </pre>
-      <tcc-code language="typescript" [code]="code"></tcc-code>
-    </tcc-master-regular>
-  `
-})
-export class RunGuardsAndResolverSlide {
-  code = `
-const routes = [{
-  path: 'admin',
-  component: AdminComponent,
-  canActivate: [
-    AuthenticationGuard,
-    AuthorizationGuard,
-    RandomGuard,
-  ],
-  runGuardsAndResolvers: 'pathParamsChange'
-}];
-  `;
-}
-
-@Component({
-  template: `
     <tcc-master-regular headline="Angular 8">
       <pre markdown>
-        * Aktuell Beta 9
-        * Release Candidate für April geplant
+        * Aktuell Beta 11
+        * Release Candidate scheduled for April
         * Ivy Renderer Preview
-        * Verbesserter Bazel Support
+        * Improved Bazel Support
       </pre>
     </tcc-master-regular>
     <tcc-speaker-notes *ngxPresentSpeakerNotes>
@@ -281,9 +152,9 @@ export class Angular8Slide {}
   template: `
     <tcc-master-regular headline="Angular 8">
       <pre markdown>
-        * Nur TypeScript 3.3
-        * Alle PNGs werden durch pngcrush gejagt
-        * JSON-Schema-Support für Service-Worker-Konfiguration
+        * Only TypeScript 3.3
+        * All PNGs run through pngcrush during build
+        * JSON-Schema-Support for Service-Worker-Configuration
         * <code>AbstractControl#markAllAsTouched()</code>
       </pre>
     </tcc-master-regular>
@@ -296,9 +167,9 @@ export class AngularCLI8Slide {}
     <tcc-master-regular headline="Won't fix broken HTML">
       <pre markdown>
         * <code>&amp;lt;!doctype html&amp;gt;</code> in index.html
-        * <code>tr</code> nur innerhalb von <code>thead</code>, <code>tbody</code> oder <code>tfoot</code> erlaubt
-        * Bisher: Auto-Korrektur
-        * Breaking Change in Angular 8: keine Auto-Korrektur mehr
+        * <code>tr</code> only valid inside of <code>thead</code>, <code>tbody</code> oder <code>tfoot</code>
+        * Till now: auto correction
+        * Breaking Change in Angular 8: no auto correction anymore
       </pre>
       <div>
         <tcc-code language="typescript" [code]="code1" headline="invalid html"></tcc-code>
@@ -330,14 +201,9 @@ export class DontFixHtmlSlide {
 export const angularSlides = [
   TitleSlide,
   NgUpdateSlide,
-  Angular7DependenciesSlide,
-  AngularCLI7Slide,
-  NgContentSlide,
-  ContentProjectionSlotsSlide,
   RouterGuardsOldSlide,
   RouterGuardsProblemSlide,
   RouterGuardsUrlTreeSlide,
-  RunGuardsAndResolverSlide,
   Angular8Slide,
   AngularCLI8Slide,
   DontFixHtmlSlide,
