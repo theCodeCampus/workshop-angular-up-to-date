@@ -150,6 +150,37 @@ export class CompilerSlide {}
 })
 export class DemoSlide {}
 
+
+@Component({
+  template: `
+    <tcc-master-regular headline="Demo">
+      <tcc-code style="max-width: 90vw; overflow-x: scroll" language="typescript" [code]="code"></tcc-code>
+    </tcc-master-regular>
+    <tcc-speaker-notes *ngxPresentSpeakerNotes>
+      <pre markdown>
+      </pre>
+    </tcc-speaker-notes>
+  `
+})
+export class DemoCodeSlide {
+  code = `
+var AppComponent = /** @class */ (function () {
+  function AppComponent() {
+    this.title = 'Ivy';
+  }
+  AppComponent.ngComponentDef = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵdefineComponent"]({ type: AppComponent, selectors: [["app-root"]], factory: function AppComponent_Factory(t) { return new (t || AppComponent)(); }, consts: 2, vars: 1, template: function AppComponent_Template(rf, ctx) { if (rf & 1) {
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵelementStart"](0, "h1");
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵtext"](1);
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵelementEnd"]();
+    } if (rf & 2) {
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵflushHooksUpTo"](1);
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵtextBinding"](1, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵinterpolation1"](" Welcome to ", ctx.title, "!\\n"));
+    } }, styles: ["\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyJ9 */"] });
+  return AppComponent;
+}());
+  `;
+}
+
 @Component({
   template: `
     <tcc-master-regular headline="Ivy Advantages">
@@ -208,6 +239,7 @@ export const ivySlides = [
   IvySlide,
   CompilerSlide,
   DemoSlide,
+  DemoCodeSlide,
   AdvantagesSlide,
   RendererAsServiceSlide,
   StatusSlide,
