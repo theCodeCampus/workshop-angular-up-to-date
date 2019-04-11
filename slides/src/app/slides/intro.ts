@@ -14,15 +14,13 @@ import { Component } from '@angular/core';
   
       <ng-container title>
         Angular up to Date<br>
-        <small>Bazel, Elements & Ivy und co</small>
+        <small>Bazel, Elements & Ivy and more</small>
       </ng-container>
   
       <ng-container bottom>
         <div style="margin-top: 4em">
-          <img src="assets/images/logos/html-days.png">
-          <img src="assets/images/logos/angular-days.png" style="margin-left: 2em">
-          <img src="assets/images/logos/js-days.png" style="margin-left: 2em">
-          <img src="assets/images/logos/react-days.png" style="margin-left: 2em">
+          <img src="assets/images/logos/meetup.svg" style="height: 3.5em; margin-bottom: -0.8em;">
+          <span style="font-size: 3em; color: white; font-style: italic; margin-left: 1em">#ngHeidelberg</span>
         </div>
       </ng-container>
   
