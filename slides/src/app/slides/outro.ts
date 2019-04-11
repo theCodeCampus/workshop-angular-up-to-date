@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 @Component({
   template: `
     <tcc-master-section-title>
-      Ende
+      End
     </tcc-master-section-title>
   `
 })

@@ -15,14 +15,14 @@ export class TitleSlide {}
 
 @Component({
   template: `
-    <tcc-master-regular headline="Worum geht es überhaupt?">
+    <tcc-master-regular headline="What it's all about?">
       <pre markdown>
-        * In Templates wird Angular verwendet
-          * Komponenten, Direktiven, Interpolation
-          * Micro-Syntax wie bei ngFor und Pipes
-        * Template muss geparset und übersetzt werden
-        * Kennen wir schon von JIT vs AOT
-        * Was ist das Zielformat?
+        * In Templates we use Angular
+          * Components, directives, interpolation
+          * Micro syntax like ngFor und pipes
+        * Template has to be parsed and translated
+        * We already know that (JIT vs AOT)
+        * But what is the target format?
       </pre>
     </tcc-master-regular>
   `
@@ -31,8 +31,12 @@ export class IntroSlide {}
 
 @Component({
   template: `
-    <tcc-master-regular headline="Demo">
-      <h2>Schauen wir uns mal an ...</h2>
+    <tcc-master-regular headline="Non Ivy Target">
+      <div style="width: 90vw">
+        <tcc-code style="max-width: 90vw; overflow-x: scroll" language="html" [code]="code2" headline="app.component.html"></tcc-code>
+        <tcc-code style="max-width: 90vw; overflow-x: scroll" language="typescript" [code]="code1" headline="app.component.ngfactory.js"></tcc-code>
+        
+      </div>
     </tcc-master-regular>
     <tcc-speaker-notes *ngxPresentSpeakerNotes>
       <pre markdown>
@@ -45,21 +49,38 @@ export class IntroSlide {}
     </tcc-speaker-notes>
   `
 })
-export class NonIvyDemoSlide {}
+export class NonIvyDemoSlide {
+  code1 = `
+const i1 = require("@angular/core");
+const i2 = require("project/src/app/app.component");
+var styles_AppComponent = [i0.styles];
+var RenderType_AppComponent = i1.ɵcrt({ encapsulation: 0, styles: styles_AppComponent, data: {} });
+exports.RenderType_AppComponent = RenderType_AppComponent;
+function View_AppComponent_0(_l) { return i1.ɵvid(0, [(_l()(), i1.ɵeld(0, 0, null, null, 1, "h1", [], null, null, null, null, null)), (_l()(), i1.ɵted(1, null, [" Welcome to ", "!\\n"]))], null, function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.title; _ck(_v, 1, 0, currVal_0); }); }
+exports.View_AppComponent_0 = View_AppComponent_0;
+function View_AppComponent_Host_0(_l) { return i1.ɵvid(0, [(_l()(), i1.ɵeld(0, 0, null, null, 1, "app-root", [], null, null, null, View_AppComponent_0, RenderType_AppComponent)), i1.ɵdid(1, 49152, null, 0, i2.AppComponent, [], null, null)], null, null); }
+exports.View_AppComponent_Host_0 = View_AppComponent_Host_0;
+var AppComponentNgFactory = i1.ɵccf("app-root", i2.AppComponent, View_AppComponent_Host_0, {}, {}, []);  
+  `;
+
+  code2 = `
+<h1>Welcome to {{ title }}!</h1>
+  `;
+}
 
 @Component({
   template: `
-    <tcc-master-regular headline="Probleme">
+    <tcc-master-regular headline="Problems">
       <pre markdown>
-        * Code soll später von TreeShaker optimiert werden
-        * Generierter Code nicht optimal: viel OOP, wenig FP
-        * Was könnte wegoptimiert werden?
-          * Teile der Template syntax
-          * Dependency Injection
-          * Content Projection
-          * Structural Directives
-          * Lifecycle Hooks
-          * Pipes, Queries, Listeners
+        * Code should be optimized by TreeShaker later on
+        * Generated Code not ideal
+          * Parts of Angular Core not tree shakable
+        * What cloud / should be shaken away?
+          * Template syntax, Content projection
+          * Dependency injection
+          * Structural directives
+          * Lifecycle hooks, pipes, queries, listeners
+        * Goal: make everything tree shakable
       </pre>
     </tcc-master-regular>
     <tcc-speaker-notes *ngxPresentSpeakerNotes>
@@ -74,11 +95,11 @@ export class NonIvyProblemsSlide {}
   template: `
     <tcc-master-regular headline="Ivy Renderer">
       <pre markdown>
-        * Mit Renderer / View Engine kaum direkter Kontakt
-        * Ivy nach <code>Renderer</code> und <code>Renderer2</code> dritte Version
-          * Wer hat vorherige Umstellung mit Angular 4 bemerkt?
-          * Nur wer <code>Renderer</code> als Service benutzt
-        * Ivy soll keine Breaking Changes verursachen
+        * Nearly no direct contact with renderer / view engine
+        * After <code>Renderer</code> und <code>Renderer2</code> Ivy is third version
+          * Who noticed the previous change in Angular 4?
+          * Important if you use <code>Renderer</code> as a service
+        * Ivy should cause no breaking changes!
       </pre>
     </tcc-master-regular>
     <tcc-speaker-notes *ngxPresentSpeakerNotes>
@@ -93,15 +114,15 @@ export class IvySlide {}
   template: `
     <tcc-master-regular headline="Angular Compiler">
       <pre markdown>
-        * Compiler muss angepasst werden damit er Ivy Code generiert
-        * Was ist mit bereits kompiliertem Code
-          * Bibliotheken, per npm installiert
-        * Compatibility Compiler ngcc: schreibt kompilierten Code auf neue API um
-          * Aktuell als npm-postinstall-Skript um es nur einmal auszuführen
-          * Ändert Code in node_modules
-        * Mit Bazel wird Caching im Build-Tool möglich
-          * ngcc wird einmal ausgeführt, Ergebnis kommt in Cache
-          * ngcc wird übersprungen sofern node_modules nicht geändert
+        * Compiler has to be adjusted to produce Ivy code
+        * What happens to already compiled code
+          * Libraries, installed via npm
+        * Compatibility Compiler ngcc: rewrites Code to new API
+          * Currently as npm-postinstall-Skript to just run it once
+          * Changes code in node_modules
+        *  Bazel enables advanced caching
+          * ngcc runs once, output will be cached by bazel
+          * ngcc will be skipped if node_modules haven't changed
       </pre>
     </tcc-master-regular>
   `
@@ -131,14 +152,14 @@ export class DemoSlide {}
 
 @Component({
   template: `
-    <tcc-master-regular headline="Vorteile Ivy">
+    <tcc-master-regular headline="Ivy Advantages">
       <pre markdown>
-        * Einfacheres Debugging dank kürzerer Stacktraces
+        * Easier debugging with shorter stack traces
         * Debugging API <code>ng.getComponent($0)</code>
-        * Lazy Loading an jeder Stelle möglich nicht nur beim Routing
-          * Standardisierte Dynamic Imports statt Magic Strings
+        * Lazy Loading with standard dynamic imports instead of magic strings
         * Higher Order Components
-          * Komponenten, die andere Komponenten entgegennehmen
+          * Pass components to other components
+          * Already possible but very complicated
       </pre>
     </tcc-master-regular>
   `
@@ -147,33 +168,15 @@ export class AdvantagesSlide {}
 
 @Component({
   template: `
-    <tcc-master-regular headline="Demo">
-      <h2>Schauen wir uns mal an</h2>
-    </tcc-master-regular>
-    <tcc-speaker-notes *ngxPresentSpeakerNotes>
-      <pre markdown>
-        * Element mit Click-Handler
-        * Breakpoint in Handler
-        * ng.getComponent ausprobieren
-        * Geht das auch im Prod-Build?
-          * Vorteil gegenüber ng.probe
-      </pre>
-    </tcc-speaker-notes>
-  `
-})
-export class AdvantagesDemoSlide {}
-
-@Component({
-  template: `
     <tcc-master-regular headline="Renderer als Service">
       <pre markdown>
-        * Renderer auch als Angular Service per DI verfügbar
-          * Verwenden statt direkter DOM-Manipulationen
-        * Warum?
-          * Security, DOM API ist ein schweizer Käse
-          * Animationen
+        * Renderer as Angular Service via DI available
+          * Preferred way to manipulate DOM
+        * Why?
+          * Security, DOM API is like Swiss cheese
+          * Animations
           * Alternative Renderer
-        * Was passiert mit sowas wie NativeScript?
+        * What's gonna happen to NativeScript?
       </pre>
     </tcc-master-regular>
     <tcc-speaker-notes *ngxPresentSpeakerNotes>
@@ -188,9 +191,9 @@ export class RendererAsServiceSlide {}
   template: `
     <tcc-master-regular headline="Status">
       <pre markdown>
-        * Preview in Angular 7 & 8
+        * Preview in Angular 8
         * Plan: Default in Angular 9
-        * ~30 fixme Kommentare
+        * ~30 fixme comments
       </pre>
     </tcc-master-regular>
   `
@@ -206,7 +209,6 @@ export const ivySlides = [
   CompilerSlide,
   DemoSlide,
   AdvantagesSlide,
-  AdvantagesDemoSlide,
   RendererAsServiceSlide,
   StatusSlide,
 ];
